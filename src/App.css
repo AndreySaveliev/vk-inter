@@ -1,0 +1,32 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.form_inputs {
+  display: flex;
+  flex-direction: row;
+}
+.form__inputs_left {
+  margin-right: 25px;
+  justify-content: space-between;
+}
+.form__inputs_left, .form__inputs_right  {
+  display: flex;
+  flex-direction: column;
+}
+.from__input_comms {
+  height: 30px
+}
+.form_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 25px
+}

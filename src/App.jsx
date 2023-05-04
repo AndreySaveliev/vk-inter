@@ -28,19 +28,26 @@ function App() {
   const [floor, setFloor] = useState('Этаж')
   const [room, setRoom] = useState('Переговорная')
   const [date, setDate] = useState('')
-  const [time, setTime] = useState(0)
+  const [startTime, setStartTime] = useState(0)
+  const [endTime, setEndTime] = useState(0)
   const [comms, setComms] = useState('')
 
-  const submitForm = () => {
+  const submitForm = (event) => {
+    event.preventDefault()
     let formToSend = {
       tower: tower,
       floor: floor,
       room: room,
       date: date,
-      time: time,
+      startTime: startTime,
+      endTime: endTime,
       comms: comms,
     }
-    console.log(JSON.stringify(formToSend))
+    if (formToSend.startTime > formToSend.endTime) {
+      console.log('Выбрано не корректное время')
+    } else {
+      console.log(JSON.stringify(formToSend))
+    }
   }
 
   const resetForm = (event) => {
@@ -50,12 +57,13 @@ function App() {
     setFloor('')
     setRoom('Переговорная')
     setDate('')
-    setTime('')
+    setStartTime('')
+    setEndTime('')
     setComms('')
   }
 
   return (
-    <form className='form' onSubmit={() => submitForm()}>
+    <form className='form' onSubmit={(event) => submitForm(event)}>
       <div className='form_inputs'>
         <div className='form__inputs_left'>
           <select className='form__input from__input_tower' name='tower' defaultValue={tower} value={tower} required onChange={(e) => setTower(e.target.value)}>
@@ -74,7 +82,12 @@ function App() {
         </div>
         <div className="form__inputs_right">
           <input className='form__input form__input_date' type='date'  value={date} required onChange={(e) => setDate(e.target.value)}></input>
-          <input className='form__input form__input_time'type="time" value={time} required onChange={(e) => setTime(e.target.value)}></input>
+          <div className='form__inputs_date'>
+            <p className='form__input_text'>От</p>
+            <input className='form__input form__input_time'type="time" value={startTime} required onChange={(e) => setStartTime(e.target.value)}></input>
+            <p className='form__input_text'>До</p>
+            <input className='form__input form__input_time'type="time" value={endTime} required onChange={(e) => setEndTime(e.target.value)}></input>
+          </div>
           <textarea className='form__input from__input_comms' type='text' value={comms} placeholder='Для чего нужна переговорная?' required onChange={(e) => setComms(e.target.value)}></textarea>
         </div>
       </div>
